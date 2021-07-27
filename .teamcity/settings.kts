@@ -39,7 +39,7 @@ object AnotherProjectBuild : BuildType({
     templates(BringAutoCppTemplate)
     name = "Builadsf"
     params{
-        param("proj_path", "TestCpp")
+        param("proj_path", "")
     }
     vcs {
         root(NoAuthGit)
@@ -77,9 +77,9 @@ object BringAutoCppTemplate : Template({
         )
         text("tests", "ON", allowEmpty = true)
         param("package", "ON")
-        param("build_path", "build")
-        param("tests_file", "%build_path%/tests/runTests")
-        param("proj_path", "TestCpp")
+        param("build_path", "build/")
+        param("tests_file", "%build_path%tests/runTests")
+        param("proj_path", "TestCpp/")
     }
 
 
