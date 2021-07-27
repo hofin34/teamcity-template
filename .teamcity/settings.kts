@@ -43,7 +43,7 @@ object YoutrackTestRepo_Build : BuildType({
     name = "Build"
 
     params {
-        param("env.package", "OFF")
+        param("package", "OFF")
     }
 })
 
@@ -57,8 +57,8 @@ object BringAutoCppTemplate : Template({
             "clear", "true",
             regex = "^(true|false)${'$'}", validationMessage = "Wrong parameter pattern (true/false expected)"
         )
-        text("env.testss", "ON", allowEmpty = true)
-        param("env.package", "ON")
+        text("tests", "ON", allowEmpty = true)
+        param("package", "ON")
         param("build_path", "build")
         param("tests_file", "%build_path%/tests/runTests")
         param("proj_path", "TestCpp")
@@ -82,7 +82,7 @@ object BringAutoCppTemplate : Template({
             name = "Cmake exec"
             workingDir = "%proj_path%"
             scriptContent =
-                "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%env.tests% -DBRINGAUTO_PACKAGE=%env.package% && make)"
+                "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%tests% -DBRINGAUTO_PACKAGE=%env.package% && make)"
         }
         script {
             name = "Pack"
@@ -97,7 +97,7 @@ object BringAutoCppTemplate : Template({
             name = "Test"
 
             conditions {
-                equals("env.tests", "ON")
+                equals("tests", "ON")
             }
             workingDir = "%proj_path%"
             scriptContent = "(%tests_file% --gtest_output=xml:test_report.xml)"
