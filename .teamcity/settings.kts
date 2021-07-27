@@ -26,13 +26,28 @@ project {
     }
 
     subProject(YoutrackTestRepo)
+    subProject(AnotherProject)
 }
 
+object AnotherProject : Project({
+    name = "asdf"
+    vcsRoot(NoAuthGit)
+    buildType(AnotherProjectBuild)
+    template(BringAutoCppTemplate)
+})
+
+object AnotherProjectBuild : BuildType({
+    templates(BringAutoCppTemplate)
+    name = "Builadsf"
+    params{
+        param("proj_path", "TestCpp")
+    }
+})
 
 object YoutrackTestRepo : Project({
     name = "Youtrack Test Repoxx"
 
-    vcsRoot(YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster)
+    vcsRoot(MyGitRoot)
     buildType(YoutrackTestRepo_Build)
 
     template(BringAutoCppTemplate)
@@ -65,7 +80,7 @@ object BringAutoCppTemplate : Template({
     }
 
     vcs {
-        root(YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster)
+        root(MyGitRoot)
     }
 
     steps {
@@ -117,7 +132,7 @@ object BringAutoCppTemplate : Template({
     }
 })
 
-object YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster : GitVcsRoot({
+object MyGitRoot : GitVcsRoot({
     name = "https://github.com/bringauto/youtrack-test-repo#refs/heads/master"
     url = "https://github.com/bringauto/youtrack-test-repo"
     branch = "refs/heads/master"
@@ -128,6 +143,12 @@ object YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster :
     }
 })
 
+object NoAuthGit : GitVcsRoot({
+    name = "Another repo"
+    url = "https://github.com/hofin34/testing_cpp"
+    branch = "refs/heads/master"
+    branchSpec = "refs/heads/*"
+})
 
 class ProjectRepo(name: String, url: String) : GitVcsRoot({
     this.name = name
@@ -140,14 +161,3 @@ class ProjectRepo(name: String, url: String) : GitVcsRoot({
     }
 })
 
-//object ProjectRepo : GitVcsRoot({
-//    name = "${DslContext.getParameter("repoName")} Repo"
-//    url = DslContext.getParameter("fetchUrl")
-//    branch = "refs/heads/master"
-//    branchSpec = "refs/heads/*"
-//    authMethod = password {
-//        userName = "hofin34"
-//        password = "zxx8a7c097df17b0feae4a77d74fd19e6f6"
-//    }
-//
-//})
