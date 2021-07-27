@@ -24,7 +24,7 @@ project {
             preventDependencyCleanup = false
         }
     }
-
+    template(BringAutoCppTemplate)
     subProject(YoutrackTestRepo)
     subProject(AnotherProject)
 }
@@ -33,7 +33,6 @@ object AnotherProject : Project({
     name = "asdf"
     vcsRoot(NoAuthGit)
     buildType(AnotherProjectBuild)
-    //template(BringAutoCppTemplate)
 })
 
 object AnotherProjectBuild : BuildType({
@@ -52,8 +51,6 @@ object YoutrackTestRepo : Project({
 
     vcsRoot(MyGitRoot)
     buildType(YoutrackTestRepo_Build)
-
-    template(BringAutoCppTemplate)
 })
 
 object YoutrackTestRepo_Build : BuildType({
