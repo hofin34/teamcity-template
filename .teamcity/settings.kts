@@ -26,44 +26,13 @@ project {
     }
 
     subProject(YoutrackTestRepo)
-    subProject(TestingCpp)
 }
-
-
-object TestingCpp : Project({
-    name = "Testing Cpp"
-
-    vcsRoot(TestingCpp_HttpsGithubComHofin34testingCppRefsHeadsMain)
-
-    buildType(TestingCpp_Build)
-})
-
-object TestingCpp_Build : BuildType({
-    name = "Build"
-
-    vcs {
-        root(TestingCpp_HttpsGithubComHofin34testingCppRefsHeadsMain)
-    }
-
-    triggers {
-        vcs {
-        }
-    }
-})
-
-object TestingCpp_HttpsGithubComHofin34testingCppRefsHeadsMain : GitVcsRoot({
-    name = "https://github.com/hofin34/testing_cpp#refs/heads/main"
-    url = "https://github.com/hofin34/testing_cpp"
-    branch = "refs/heads/main"
-    branchSpec = "refs/heads/*"
-})
 
 
 object YoutrackTestRepo : Project({
     name = "Youtrack Test Repo"
 
     vcsRoot(YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster)
-
     buildType(YoutrackTestRepo_Build)
 
     template(YoutrackTestRepo_CppTemplate)
@@ -72,6 +41,10 @@ object YoutrackTestRepo : Project({
 object YoutrackTestRepo_Build : BuildType({
     templates(YoutrackTestRepo_CppTemplate)
     name = "Build"
+
+    params{
+        param("env.package", "OFF")
+    }
 
     steps {
         script {
@@ -180,3 +153,15 @@ object YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster :
         password = "zxx8a7c097df17b0feae4a77d74fd19e6f6"
     }
 })
+
+//object ProjectRepo : GitVcsRoot({
+//    name = "${DslContext.getParameter("repoName")} Repo"
+//    url = DslContext.getParameter("fetchUrl")
+//    branch = "refs/heads/master"
+//    branchSpec = "refs/heads/*"
+//    authMethod = password {
+//        userName = "hofin34"
+//        password = "zxx8a7c097df17b0feae4a77d74fd19e6f6"
+//    }
+//
+//})
