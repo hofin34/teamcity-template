@@ -57,7 +57,7 @@ object BringAutoCppTemplate : Template({
             "clear", "true",
             regex = "^(true|false)${'$'}", validationMessage = "Wrong parameter pattern (true/false expected)"
         )
-        text("env.tests", "ON", allowEmpty = true)
+        text("env.testss", "ON", allowEmpty = true)
         param("env.package", "ON")
         param("build_path", "build")
         param("tests_file", "%build_path%/tests/runTests")
