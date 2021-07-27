@@ -147,7 +147,6 @@ object MyGitRoot : GitVcsRoot({
 object NoAuthGit : GitVcsRoot({
     name = "Another repo"
     url = "https://github.com/hofin34/testing_cpp"
-    branch = "refs/heads/master"
     branchSpec = "refs/heads/*"
 })
 
