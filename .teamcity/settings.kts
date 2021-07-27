@@ -42,6 +42,9 @@ object AnotherProjectBuild : BuildType({
     params{
         param("proj_path", "TestCpp")
     }
+    vcs {
+        root(NoAuthGit)
+    }
 })
 
 object YoutrackTestRepo : Project({
@@ -59,6 +62,9 @@ object YoutrackTestRepo_Build : BuildType({
 
     params {
         param("package", "OFF")
+    }
+    vcs {
+        root(MyGitRoot)
     }
 })
 
@@ -79,9 +85,7 @@ object BringAutoCppTemplate : Template({
         param("proj_path", "TestCpp")
     }
 
-    vcs {
-        root(MyGitRoot)
-    }
+
 
     steps {
         script {
