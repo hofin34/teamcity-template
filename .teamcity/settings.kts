@@ -33,7 +33,7 @@ object AnotherProject : Project({
     name = "asdf"
     vcsRoot(NoAuthGit)
     buildType(AnotherProjectBuild)
-    template(BringAutoCppTemplate)
+    //template(BringAutoCppTemplate)
 })
 
 object AnotherProjectBuild : BuildType({
