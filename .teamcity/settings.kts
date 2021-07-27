@@ -30,7 +30,7 @@ project {
 
 
 object YoutrackTestRepo : Project({
-    name = "Youtrack Test Repo"
+    name = "Youtrack Test Repoxx"
 
     vcsRoot(YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster)
     buildType(YoutrackTestRepo_Build)
