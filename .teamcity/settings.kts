@@ -82,7 +82,7 @@ object BringAutoCppTemplate : Template({
             name = "Cmake exec"
             workingDir = "%proj_path%"
             scriptContent =
-                "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%tests% -DBRINGAUTO_PACKAGE=%env.package% && make)"
+                "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%tests% -DBRINGAUTO_PACKAGE=%package% && make)"
         }
         script {
             name = "Pack"
