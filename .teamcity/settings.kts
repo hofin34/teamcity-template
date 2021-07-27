@@ -35,49 +35,28 @@ object YoutrackTestRepo : Project({
     vcsRoot(YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster)
     buildType(YoutrackTestRepo_Build)
 
-    template(YoutrackTestRepo_CppTemplate)
+    template(BringAutoCppTemplate)
 })
 
 object YoutrackTestRepo_Build : BuildType({
-    templates(YoutrackTestRepo_CppTemplate)
+    templates(BringAutoCppTemplate)
     name = "Build"
 
-    params{
+    params {
         param("env.package", "OFF")
-    }
-
-    steps {
-        script {
-            name = "Pack"
-            id = "RUNNER_3"
-
-            conditions {
-                equals("env.package", "ON")
-            }
-            workingDir = "%proj_path%"
-            scriptContent = "(cd build && make package)"
-        }
-        script {
-            name = "Test"
-            id = "RUNNER_4"
-
-            conditions {
-                equals("env.tests", "ON")
-            }
-            workingDir = "%proj_path%"
-            scriptContent = "(%tests_file% --gtest_output=xml:test_report.xml)"
-        }
     }
 })
 
-object YoutrackTestRepo_CppTemplate : Template({
+object BringAutoCppTemplate : Template({
     name = "CppTemplate"
 
     artifactRules = "%proj_path%/build => %proj_path%/build"
 
     params {
-        text("clear", "true",
-            regex = "^(true|false)${'$'}", validationMessage = "Wrong parameter pattern (true/false expected)")
+        text(
+            "clear", "true",
+            regex = "^(true|false)${'$'}", validationMessage = "Wrong parameter pattern (true/false expected)"
+        )
         text("env.tests", "ON", allowEmpty = true)
         param("env.package", "ON")
         param("build_path", "build")
@@ -92,7 +71,6 @@ object YoutrackTestRepo_CppTemplate : Template({
     steps {
         script {
             name = "Clear"
-            id = "RUNNER_5"
 
             conditions {
                 equals("clear", "true")
@@ -102,13 +80,12 @@ object YoutrackTestRepo_CppTemplate : Template({
         }
         script {
             name = "Cmake exec"
-            id = "RUNNER_2"
             workingDir = "%proj_path%"
-            scriptContent = "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%env.tests% -DBRINGAUTO_PACKAGE=%env.package% && make)"
+            scriptContent =
+                "(mkdir -p build && cd build && cmake .. -DBRINGAUTO_TESTS=%env.tests% -DBRINGAUTO_PACKAGE=%env.package% && make)"
         }
         script {
             name = "Pack"
-            id = "RUNNER_3"
 
             conditions {
                 equals("env.package", "ON")
@@ -118,7 +95,6 @@ object YoutrackTestRepo_CppTemplate : Template({
         }
         script {
             name = "Test"
-            id = "RUNNER_4"
 
             conditions {
                 equals("env.tests", "ON")
@@ -130,13 +106,11 @@ object YoutrackTestRepo_CppTemplate : Template({
 
     triggers {
         vcs {
-            id = "TRIGGER_2"
         }
     }
 
     features {
         xmlReport {
-            id = "BUILD_EXT_1"
             reportType = XmlReport.XmlReportType.GOOGLE_TEST
             rules = "**/*.xml"
         }
@@ -146,6 +120,18 @@ object YoutrackTestRepo_CppTemplate : Template({
 object YoutrackTestRepo_HttpsGithubComBringautoYoutrackTestRepoRefsHeadsMaster : GitVcsRoot({
     name = "https://github.com/bringauto/youtrack-test-repo#refs/heads/master"
     url = "https://github.com/bringauto/youtrack-test-repo"
+    branch = "refs/heads/master"
+    branchSpec = "refs/heads/*"
+    authMethod = password {
+        userName = "hofin34"
+        password = "zxx8a7c097df17b0feae4a77d74fd19e6f6"
+    }
+})
+
+
+class ProjectRepo(name: String, url: String) : GitVcsRoot({
+    this.name = name
+    this.url = url
     branch = "refs/heads/master"
     branchSpec = "refs/heads/*"
     authMethod = password {
