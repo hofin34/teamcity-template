@@ -24,6 +24,7 @@ project {
             preventDependencyCleanup = false
         }
     }
+
     template(BringAutoCppTemplate)
     subProject(YoutrackTestRepo)
     subProject(AnotherProject)
