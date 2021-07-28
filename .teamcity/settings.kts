@@ -48,7 +48,6 @@ object AnotherProjectBuild : BuildType({
 
 object YoutrackTestRepo : Project({
     name = "Youtrack Test Repoxx"
-
     vcsRoot(MyGitRoot)
     buildType(YoutrackTestRepo_Build)
 })
@@ -150,14 +149,14 @@ object NoAuthGit : GitVcsRoot({
     branch = "refs/heads/main"
 })
 
-class ProjectRepo(name: String, url: String) : GitVcsRoot({
+class ProjectRepo(name: String, url: String, userName: String, tokenPassword: String) : GitVcsRoot({
     this.name = name
     this.url = url
     branch = "refs/heads/master"
     branchSpec = "refs/heads/*"
     authMethod = password {
-        userName = "hofin34"
-        password = "zxx8a7c097df17b0feae4a77d74fd19e6f6"
+        this.userName = userName
+        password = tokenPassword
     }
 })
 
