@@ -132,7 +132,7 @@ object BringAutoCppTemplate : Template({
         }
     }
 })
-
+//
 object MyGitRoot : GitVcsRoot({
     name = "https://github.com/bringauto/youtrack-test-repo#refs/heads/master"
     url = "https://github.com/bringauto/youtrack-test-repo"
